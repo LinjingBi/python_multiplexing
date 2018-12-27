@@ -1,3 +1,4 @@
+# select+协程+事件循环
 # asyncio没有提供http协议的接口，aiohttp有
 import asyncio
 import time
@@ -10,7 +11,7 @@ async def get_html(link):
     path = url.path
     # 协程的办法就是把原理耗时阻塞的位置也就是注册的位置，全部yield from出去
 
-    # 用协程的方式完成了socket.connect,以及register EVENT_WRITE
+    # open_connection内部用协程的方式完成了socket.connect,以及register EVENT_WRITE
     reader, writer = await asyncio.open_connection(host, 80)
     # 完成了unregister，然后socket.send，并且register
     # EVENT_READ，说明下一步是要从recv也就是现在的reader读收到的回复
@@ -40,6 +41,8 @@ if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     Tasks = []
     start = time.time()
+
+    # 在函数内部打印
     # for i in range(20):  # 构造20个预备协程
     #     url = 'http://shop.projectsedu.com/goods/{}/'.format(i)
     #     Tasks.append(get_html(url))

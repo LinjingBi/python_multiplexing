@@ -24,7 +24,7 @@ class Server:
     def accept(self,key):
         #selector.unregister(key.fd)
         client,addr = key.fileobj.accept()
-        client.setblocking(0)
+        client.setblocking(False)
         self.client_list.append(client)
         #if len(self.client_list)==3:
         selector.register(client,EVENT_READ,self.connected)

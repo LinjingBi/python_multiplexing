@@ -1,8 +1,8 @@
+# 生产者消费者模式
 import threading
 import time
 import queue
-
-
+# queue.Queue()是线程安全的，可以用作线程间通信的消息队列
 
 # #线程中利用消息队列Queue实现线程通信
 #
@@ -51,11 +51,11 @@ import queue
 # print(time.time()-start)
 
 
-###用condition写生产者-消费者模式
+# 用condition写生产者-消费者模式
 
-#1.
-#当库存小于十个的时候，生产者要努力生产，大于等于10个的时候，生产者可以休息
-#当库存等于1时，消费者要等待，等到生产者生产了大于等于1个时，才能开始消费
+# 1.
+# 当库存小于十个的时候，生产者要努力生产，大于等于10个的时候，生产者可以休息
+# 当库存等于1时，消费者要等待，等到生产者生产了大于等于1个时，才能开始消费
 
 stock = 0
 cnd = threading.Condition()
@@ -63,7 +63,7 @@ cnd = threading.Condition()
 
 class Producer(threading.Thread):
 
-    def __init__(self,name):
+    def __init__(self, name):
         super().__init__(name=name)
 
     def run(self):
@@ -79,12 +79,12 @@ class Producer(threading.Thread):
                     print('库存充足（10+），可以休息一会儿了')
                     cnd.wait()
                 time.sleep(2)
-                #cnd.release()
+                # cnd.release()
 
 
 class Consumer(threading.Thread):
 
-    def __init__(self,name):
+    def __init__(self, name):
         super().__init__(name=name)
 
     def run(self):
@@ -100,7 +100,8 @@ class Consumer(threading.Thread):
                     print('只剩一个产品了，消费者{}等待中'.format(self._name))
                     cnd.wait()
                 time.sleep(2)
-                #cnd.release()
+                # cnd.release()
+
 
 if __name__ == '__main__':
     for i in range(2):

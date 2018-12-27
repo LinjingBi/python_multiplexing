@@ -1,3 +1,4 @@
+# 利用select+callback+eventloop做的聊天室，可以多人聊天
 import socket
 import time
 from selectors import DefaultSelector,EVENT_READ,EVENT_WRITE

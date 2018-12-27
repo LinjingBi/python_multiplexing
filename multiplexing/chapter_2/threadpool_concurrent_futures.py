@@ -36,6 +36,7 @@ tasks = [executor.submit(get_html, times) for times in interval]
 #     data = future.result()
 #     print('get {} result'.format(data))
 
+# 当tasks队列里的第一个完成的时候，return，主线程继续执行，也就是说第一个task完了就print（done）
 wait(tasks, return_when=FIRST_COMPLETED)
 print('done')
 # 方法二，利用线程池（executor）的map功能直接映射，输出（future）为线程的返回值，并且返回的顺序为map的顺序
